@@ -11,33 +11,40 @@ struct Usuario {
 
 void ingresarUsuario(Usuario *a);
 void saludo();
+
+
 int main() {
     saludo();
+    int opcion;
+    cin>>opcion;
                                                             //SOLICITUD DE USUARIOS A CREAR COMO ESTRUCTURA
-    int numero_de_usuarios=2;                               //DEJAR SIN VALOR AL TERMINAR
+    int numero_de_usuarios=0;                               //DEJAR SIN VALOR AL TERMINAR
     printf("Ingrese la cantidad de personas:\n");
    // scanf("%d", &numero_de_usuarios);
     Usuario c[numero_de_usuarios];
 
     //----------------------------------------------------
 
-if() {
+if(opcion==1) {
     //CREACION DE USUARIOS
-    for (int i = 1; i < numero_de_usuarios + 1; i++) {
+    numero_de_usuarios++;
+    for (int i = 0; i < numero_de_usuarios; i++) {
 
         ingresarUsuario(&c[i]);
         printf("%s\n", c[i].nombre);
     }
 }
     //----------------------------------------------------
-
+else if(opcion==2){
+    printf("nada por ahora");
+}
     return 0;
 }
 
 void ingresarUsuario(Usuario *a) {
-    printf("Nombre:\n");
+    printf("Nombre: ");
     scanf("%s", a->nombre);
-    printf("Rut");
+    printf("Rut: ");
     scanf("%lu", &(a->rut));
     printf("--------------------------------\n");
 }
