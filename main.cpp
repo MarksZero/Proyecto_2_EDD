@@ -2,11 +2,12 @@
 #include <string.h>
 #include <iostream>
 #include <stdlib.h>
+#include <cstdio>
 
 using namespace std;
 
 struct Usuario {
-    char nombre[30];
+    char nombre[50];
     long rut;
 };
 
@@ -15,7 +16,9 @@ void saludo();
 
 
 int main() {
-    FILE * arch = fopen ("Listas.txt", "r");
+    FILE * arch;
+    arch = fopen ("Listas.txt", "a+");
+
     saludo();
     int opcion;
     cin>>opcion;
@@ -27,13 +30,17 @@ int main() {
 
     if(opcion==1) {
         //CREACION DE USUARIOS
-        cout<<numero_de_usuarios <<"\n";
+        cout<<numero_de_usuarios <<"\n";    // solicitar numero de cuentas que deseas crear
+
         numero_de_usuarios++;
         for (int i = 0; i < numero_de_usuarios; i++) {
             ingresarUsuario(&u[i]);
-            printf("%s\n", u[i].nombre);
-            fscanf(stdin, "%c", &u[i].nombre);
-           // fscanf(arch, "%lu", &u[i].rut);
+            long alfa=u[i].rut;
+            cout<<alfa;
+            fprintf(arch, "%s %lu",u[i].nombre, &alfa);
+            fclose(arch);
+            arch =fopen("Listas.txt", "a+");
+           fscanf(arch, "%s %lu", u[i].nombre, &alfa);
 
 
         }
