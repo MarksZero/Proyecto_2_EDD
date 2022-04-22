@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cstdio>
+#include <fstream>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ struct Usuario {
 void ingresarUsuario(Usuario *a);
 
 void saludo();
-
+void lectura();
 
 int main() {
 
@@ -39,7 +40,7 @@ int main() {
             ingresarUsuario(&u[i]);
             // long alfa = u[i].rut;
 
-            fprintf(arch, "%s %lu ", u[i].nombre, *&u[i].rut);
+            fprintf(arch, "%s %lu \n", u[i].nombre, *&u[i].rut);
             fclose(arch);
             //arch = fopen("Listas.txt", "a+
         }
@@ -47,25 +48,35 @@ int main() {
         //----------------------------------------------------
     else if (opcion == 2) {
         cout << numero_de_usuarios << "\n";
-        cout<<u->nombre;
+        cout << u->nombre;
+        lectura();
 
-        for (int i = 0; i < numero_de_usuarios; i++) {
-            FILE *arch = fopen("Listas.txt", "r");
-            fscanf(arch, "%s %lu ", u[i].nombre, *&u[i].rut);
-            printf("hola %s tu rut es %lu");
-
-        }
     }
     fclose(arch);
     return 0;
 }
 
 void ingresarUsuario(Usuario *a) {
+    cout<<"ingrese su nombre y rut, sin puntos ni guion \n";
     printf("Nombre: ");
     scanf("%s", a->nombre);
     printf("Rut: ");
     scanf("%lu", &(a->rut));
     printf("--------------------------------\n");
+}
+
+void lectura(){
+    ifstream archivo;
+    string texto;
+    archivo.open("Listas.txt",ios::in);//abrimos un archivo en modo lectura
+    if(archivo.fail()){
+        cout<<"\n no se pudo abrir el archivo \n";
+    }
+    while (!archivo.eof()){//mientras no sea el final del archivo
+        getline(archivo,texto);
+        cout<<texto<<endl;
+    }
+    archivo.close();
 }
 
 void saludo() {
