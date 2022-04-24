@@ -11,10 +11,10 @@ struct Usuario {
     char nombre[50];
     long rut;
 };
-struct Experimento{
+struct Experimento {
     int Tiempo;
-    long Crecimiento;
-    long Altura;
+    int Crecimiento;
+    int Altura;
     int Cantidad_de_celulas_muertas;
     int Cantidad_de_contaminadas;
     int Cantidad_de_celulas_vivas;
@@ -22,10 +22,14 @@ struct Experimento{
 };
 
 void ingresarUsuario(Usuario *a);
+
 void datosExperimento(Experimento *b);
+
 void saludo();
 
 void lectura();
+
+void rellenar();
 
 char nombre_archivo[30] = "ListaUsuarios.txt";
 
@@ -38,7 +42,7 @@ int main() {
 
     int numero_de_usuarios = 0;
     Usuario u[numero_de_usuarios];
-    Experimento experimento;
+    // Experimento experimento;
 
     //----------------------------------------------------
 
@@ -62,20 +66,38 @@ int main() {
     }
         //-----------------------------------------------------
     else if (opcion == 3) {
-
-        cout<<"Por favor ingrese el nombre con el que quiere trabajar, y terminelo en .txt\n";
-        cin>> nombre_archivo[30];
+        rellenar();
+/*
+        Experimento experimento;
+        cout << "Por favor ingrese el nombre con el que quiere trabajar, y terminelo en .txt\n";
+        char nombre_arch[30];
+        cin >> nombre_arch[30];
+        //while(nombre_archivo)
+        scanf("%c", nombre_arch[30]);
+        //  nombre_archivo[30]=nombre[30];
         FILE *arch2 = fopen(nombre_archivo, "a+");
-        datosExperimento(&experimento);
-        fprintf(arch2, " %d %d %lu %lu %d %d %d \n", *&experimento.Tiempo, *&experimento.Crecimiento, *&experimento.Altura,
-                *&experimento.Cantidad_de_celulas_muertas, *&experimento.Cantidad_de_contaminadas ,
-                *&experimento.Cantidad_de_celulas_vivas, *&experimento.Concentración_en_solucione);
 
+
+        datosExperimento(&experimento);
+        fprintf(arch2, "%s %d \n %s %d \n",
+                "Tiempo: ", *&experimento.Tiempo,
+                "Crecimiento: ", *&experimento.Crecimiento);
+        fprintf(arch2, "%s %d \n %s %d \n",
+                "Altura: ", *&experimento.Altura,
+                "Cantidad de celulas muertas: ", *&experimento.Cantidad_de_celulas_muertas);
+        fprintf(arch2, "%s %d \n ",
+                "Cantidad de contaminadas: ", *&experimento.Cantidad_de_contaminadas);
+        fprintf(arch2, "%s %d \n",
+                "Cantidad de celulas vivas: ", *&experimento.Cantidad_de_celulas_vivas);
+        fprintf(arch2, "%s %lu \n",
+                "Concetracion en soluciones: ", *&experimento.Concentración_en_solucione);
 
         fclose(arch2);
+        */
+
+        return 0;
     }
-//    fclose(arch);
-    return 0;
+
 }
 
 void ingresarUsuario(Usuario *a) {
@@ -86,22 +108,24 @@ void ingresarUsuario(Usuario *a) {
     scanf("%lu", &(a->rut));
     printf("--------------------------------\n");
 }
-void datosExperimento(Experimento *b){
-    cout<<"ingrese los datos del experimento \n";
-    cout<<"Tiempo: ";
-    scanf("%d", b->Tiempo);
-    cout<<"Crecimiento";
-    scanf("%lu", &(b->Crecimiento));
-    cout<<"Altura";
-    scanf("%lu", &(b->Altura));
-    cout<<"Cantidad de celulas muertas";
-    scanf("%d", &(b->Cantidad_de_celulas_muertas));
-    cout<<"Cantidad de contaminadas";
-    scanf("%d", &(b->Cantidad_de_contaminadas));
-    cout<<"Cantidad de celulas vivas";
-    scanf("%d", &(b->Cantidad_de_celulas_vivas));
-    cout<<"Concetracion en soluciones";
-    scanf("%d", &(b->Concentración_en_solucione));
+
+void datosExperimento(Experimento *b) {
+    cout << "ingrese los datos del experimento \n";
+    cout << "Tiempo:  ";
+    cin >> b->Tiempo;
+    cout << "Crecimiento:  ";
+    cin >> b->Crecimiento;
+    cout << "Altura:  ";
+    cin >> b->Altura;
+    cout << "cantidad de:\n";
+    cout << "Celulas muertas:  ";
+    cin >> b->Cantidad_de_celulas_muertas;
+    cout << "Celulas contaminadas:  ";
+    cin >> b->Cantidad_de_contaminadas;
+    cout << "Celulas vivas:  ";
+    cin >> b->Cantidad_de_celulas_vivas;
+    cout << "Concetracion en sol:  ";
+    cin >> b->Concentración_en_solucione;
 }
 
 void lectura() {
@@ -123,4 +147,27 @@ void saludo() {
     cout << "**Bienvenido**" << "\n" << "Que accion desea realizar?" << "\n";
     cout << "[1] Crear usuario" << "\n" << "[2] Ver usurarios creados" << "\n" << "[3] Guardar notas\n";
 
+}
+
+void rellenar() {
+    Experimento experimento;
+    cout << "Por favor ingrese el nombre con el que quiere trabajar, y terminelo en .txt\n";
+    // char nombre_archivo[30];
+    cin >> nombre_archivo[30];
+    FILE *arch2 = fopen(nombre_archivo, "a+");
+    datosExperimento(&experimento);
+    fprintf(arch2, "%s %d \n %s %d \n",
+            "Tiempo: ", *&experimento.Tiempo,
+            "Crecimiento: ", *&experimento.Crecimiento);
+    fprintf(arch2, "%s %d \n %s %d \n",
+            "Altura: ", *&experimento.Altura,
+            "Cantidad de celulas muertas: ", *&experimento.Cantidad_de_celulas_muertas);
+    fprintf(arch2, "%s %d \n ",
+            "Cantidad de contaminadas: ", *&experimento.Cantidad_de_contaminadas);
+    fprintf(arch2, "%s %d \n",
+            "Cantidad de celulas vivas: ", *&experimento.Cantidad_de_celulas_vivas);
+    fprintf(arch2, "%s %lu \n",
+            "Concetracion en soluciones: ", *&experimento.Concentración_en_solucione);
+
+    fclose(arch2);
 }
