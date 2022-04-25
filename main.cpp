@@ -5,8 +5,11 @@
 #include <cstdio>
 #include <fstream>
 
-using namespace std;
 
+
+char palabra[20];
+bool existir = false;
+char nombre_arch[30];
 struct Usuario {
     char nombre[50];
     long rut;
@@ -20,9 +23,9 @@ struct Experimento {
     int Cantidad_de_celulas_vivas;
     long Concentración_en_solucione;
 };
+char nombre_archivo[30] = "ListaUsuarios.txt";
 
 void ingresarUsuario(Usuario *a);
-
 void datosExperimento(Experimento *b);
 
 void saludo();
@@ -31,8 +34,10 @@ void lectura();
 
 void rellenar();
 
-char nombre_archivo[30] = "ListaUsuarios.txt";
+void lineas();
 
+
+using namespace std;
 
 int main() {
 
@@ -42,8 +47,6 @@ int main() {
 
     int numero_de_usuarios = 0;
     Usuario u[numero_de_usuarios];
-    // Experimento experimento;
-
     //----------------------------------------------------
 
     if (opcion == 1) {
@@ -60,45 +63,27 @@ int main() {
         //----------------------------------------------------
     else if (opcion == 2) {
         cout << numero_de_usuarios << "\n";
-        //  cout << u->nombre;
         lectura();
 
     }
         //-----------------------------------------------------
     else if (opcion == 3) {
-        rellenar();
-/*
-        Experimento experimento;
-        cout << "Por favor ingrese el nombre con el que quiere trabajar, y terminelo en .txt\n";
-        char nombre_arch[30];
-        cin >> nombre_arch[30];
-        //while(nombre_archivo)
-        scanf("%c", nombre_arch[30]);
-        //  nombre_archivo[30]=nombre[30];
-        FILE *arch2 = fopen(nombre_archivo, "a+");
+        cout << "Ingresa tu nombre por favor: ";
+        cin >> palabra;
+        lineas();
+        if (existir == true) {
+            cout << "ingresa el nombre del archivo y termionelo en .txt \n";
+            cin >> nombre_arch;
+            rellenar();
 
-
-        datosExperimento(&experimento);
-        fprintf(arch2, "%s %d \n %s %d \n",
-                "Tiempo: ", *&experimento.Tiempo,
-                "Crecimiento: ", *&experimento.Crecimiento);
-        fprintf(arch2, "%s %d \n %s %d \n",
-                "Altura: ", *&experimento.Altura,
-                "Cantidad de celulas muertas: ", *&experimento.Cantidad_de_celulas_muertas);
-        fprintf(arch2, "%s %d \n ",
-                "Cantidad de contaminadas: ", *&experimento.Cantidad_de_contaminadas);
-        fprintf(arch2, "%s %d \n",
-                "Cantidad de celulas vivas: ", *&experimento.Cantidad_de_celulas_vivas);
-        fprintf(arch2, "%s %lu \n",
-                "Concetracion en soluciones: ", *&experimento.Concentración_en_solucione);
-
-        fclose(arch2);
-        */
-
+        } else {
+            cout << "Lo sentimos, el usuario no fue encontrado";
+        }
         return 0;
-    }
 
+    }
 }
+
 
 void ingresarUsuario(Usuario *a) {
     cout << "ingrese su nombre y rut, sin puntos ni guion \n";
@@ -111,25 +96,25 @@ void ingresarUsuario(Usuario *a) {
 
 void datosExperimento(Experimento *b) {
     cout << "ingrese los datos del experimento \n";
-    cout << "Tiempo:  ";
+    cout << "Tiempo(dias):  ";
     cin >> b->Tiempo;
-    cout << "Crecimiento:  ";
-    cin >> b->Crecimiento;
-    cout << "Altura:  ";
+    cout << "Altura Actual(cm):  ";
     cin >> b->Altura;
+    cout << "Crecimiento(cm):  ";
+    cin >> b->Crecimiento;
     cout << "cantidad de:\n";
-    cout << "Celulas muertas:  ";
+    cout << "especimenes muertas:  ";
     cin >> b->Cantidad_de_celulas_muertas;
-    cout << "Celulas contaminadas:  ";
+    cout << "especimenes contaminadas:  ";
     cin >> b->Cantidad_de_contaminadas;
-    cout << "Celulas vivas:  ";
+    cout << "especimenes vivas:  ";
     cin >> b->Cantidad_de_celulas_vivas;
     cout << "Concetracion en sol:  ";
     cin >> b->Concentración_en_solucione;
 }
 
 void lectura() {
-    //char nombre_archivo[20] = "ListaUsuarios.txt";
+    char nombre_archivo[20] = "ListaUsuarios.txt";
     ifstream archivo;
     string texto;
     archivo.open(nombre_archivo, ios::in);//abrimos un archivo en modo lectura
@@ -151,23 +136,42 @@ void saludo() {
 
 void rellenar() {
     Experimento experimento;
-    cout << "Por favor ingrese el nombre con el que quiere trabajar, y terminelo en .txt\n";
-    // char nombre_archivo[30];
-    cin >> nombre_archivo[30];
-    FILE *arch2 = fopen(nombre_archivo, "a+");
+    //char nombre_arch[30] = "archivo";
+    //cin >> nombre_arch[30];
+    FILE *arch2 = fopen(nombre_arch, "a+");
     datosExperimento(&experimento);
     fprintf(arch2, "%s %d \n %s %d \n",
-            "Tiempo: ", *&experimento.Tiempo,
-            "Crecimiento: ", *&experimento.Crecimiento);
+            "Tiempo(dias): ", *&experimento.Tiempo,
+            "Altura Actual(cm): ", *&experimento.Altura);
     fprintf(arch2, "%s %d \n %s %d \n",
-            "Altura: ", *&experimento.Altura,
-            "Cantidad de celulas muertas: ", *&experimento.Cantidad_de_celulas_muertas);
+            "Crecimiento(cm): ", *&experimento.Crecimiento,
+            "Cantidad de especimenes muertas: ", *&experimento.Cantidad_de_celulas_muertas);
     fprintf(arch2, "%s %d \n ",
-            "Cantidad de contaminadas: ", *&experimento.Cantidad_de_contaminadas);
+            "Cantidad de especimenes contaminadas: ", *&experimento.Cantidad_de_contaminadas);
     fprintf(arch2, "%s %d \n",
-            "Cantidad de celulas vivas: ", *&experimento.Cantidad_de_celulas_vivas);
+            "Cantidad de especimenes vivas: ", *&experimento.Cantidad_de_celulas_vivas);
     fprintf(arch2, "%s %lu \n",
             "Concetracion en soluciones: ", *&experimento.Concentración_en_solucione);
 
     fclose(arch2);
+}
+
+void lineas() {
+
+    char nombre[30] = "ListaUsuarios.txt";
+
+    if (palabra != NULL) {
+        ifstream fichero("ListaUsuarios.txt");
+        char cadena[500];
+        int nlinea = 0;
+        if (fichero) {
+            while (fichero) {
+                fichero.getline(cadena, 500);
+                nlinea++;
+                if (fichero)
+                    if (strstr(cadena, palabra))
+                        existir = true;
+            }
+        }
+    }
 }
