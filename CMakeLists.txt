@@ -3,4 +3,4 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(untitled main.cpp main2.cpp main2.h)
+add_executable(untitled main.cpp lista.cpp lista.h listaStruct.h)

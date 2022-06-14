@@ -1,15 +1,30 @@
+/* Universidad de La Frontera
+* Departamento de Ingeniería Eléctrica
+*
+* IIE-344 ESTRUCTURA DE DATOS Y ALGORITMOS
+*
+* Tarea 2
+*
+* Autores: Pablo Martinez p.martinez10@ufromail.cl
+*          Pablo
+*
+* Fecha: 15/06/2022
+*
+* Descripción general del programa
+*/
+
+
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
-#include <stdlib.h>
-#include <cstdio>
 #include <fstream>
-
+#include "lista.h"
 
 
 char palabra[20];   //variable global para luego buscar por nombre
 bool existir = false; //boleano para corroborar que el usuario exista
 char nombre_arch[30]; //nombre del archivo a ser creado
+
 struct Usuario {   //datos a solicitar para la creacion de un usuario
     char nombre[50];
     long rut;
@@ -24,6 +39,7 @@ struct Experimento {    //datos a solicitar para poder llenar la hoja del experi
     int Cantidad_de_celulas_vivas;
     long Concentración_en_solucione;
 };
+
 char nombre_archivo[30] = "ListaUsuarios.txt";  //variable global que define el nombre de la lista de usuarios creados
 //-------------------------------------------------------------------------------
 //lista de void's usados
@@ -45,6 +61,14 @@ void revision_usuarios();
 using namespace std;
 
 int main() {
+
+    printf("Test del TDA de Lista\n");
+    Lista lista;
+    anula(lista);
+    if (vacia(lista)) {
+        printf("La lista está vacía!\n");
+    }
+
 
     saludo(); //llamado a la funcion saludo que solo imprime un mensaje
     int opcion;
@@ -70,7 +94,8 @@ int main() {
         cin >> palabra;
         revision_usuarios();      //funcion que corrobora la existencia de la palabra/numero dado
         if (existir == true) {      //verificacion de que el usuario exista
-            cout << "ingresa el nombre del archivo y termionelo en .txt \n";    //solicitud de nombre para el archivo a crear
+            cout
+                    << "ingresa el nombre del archivo y termionelo en .txt \n";    //solicitud de nombre para el archivo a crear
             cin >> nombre_arch;
             rellenar();     //llamado a la funcion que se encarga de rellenar los datos de experimento
 
@@ -82,7 +107,7 @@ int main() {
     }
         //-----------------------------------------------------
 
-    else if (opcion == 1501) {   //colocamos un numero que solo el creador sabra para evitar que los usuarios vean a los usuarios ya creados
+    else if (opcion == 123) {   //colocamos un numero que solo el creador sabra para evitar que los usuarios vean a los usuarios ya creados
         lectura();  //llamado a la funcion para poder ver los usuarios previamente creados
 
     }
@@ -134,13 +159,14 @@ void lectura() {
 
 void saludo() { //funcion simplemente creada para enviar instrucciones
     cout << "**Bienvenido**" << "\n" << "Que accion desea realizar?" << "\n";
-    cout << "[1] Crear usuario" << "\n"  << "[2] Guardar datos de experimento"<< "\n" << "[?] Ver usurarios creados\n";
+    cout << "[1] Crear usuario" << "\n" << "[2] Guardar datos de experimento" << "\n" << "[?] Ver usurarios creados\n";
 
 }
 
 void rellenar() {
     Experimento experimento;
-    FILE *arch2 = fopen(nombre_arch, "a+");  //creacion de archivo en modo en que  permite leer y agregar información en un archivo que existe. Si no existe se crea.
+    FILE *arch2 = fopen(nombre_arch,
+                        "a+");  //creacion de archivo en modo en que  permite leer y agregar información en un archivo que existe. Si no existe se crea.
     datosExperimento(&experimento);
     fprintf(arch2, "%s %d \n %s %d \n",             //Imprimimos en el .txt los datos solicitados
             "Tiempo(dias): ", *&experimento.Tiempo,
