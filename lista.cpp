@@ -96,10 +96,9 @@ void saludo() { //funcion simplemente creada para enviar instrucciones
 
 }
 
-void rellenar() {
+void rellenar(const char *nombre) {
     Experimento experimento{};
-    FILE *arch2 = fopen(nombre_archivo,
-                        "a+");  //creacion de archivo en modo en que  permite leer y agregar información en un archivo que existe. Si no existe se crea.
+    FILE *arch2 = fopen(nombre,"a+");  //creacion de archivo en modo en que  permite leer y agregar información en un archivo que existe. Si no existe se crea.
     datosExperimento(&experimento);
     fprintf(arch2, "%s %d \n %s %d \n",             //Imprimimos en el .txt los datos solicitados
             "Tiempo(dias): ", *&experimento.Tiempo,

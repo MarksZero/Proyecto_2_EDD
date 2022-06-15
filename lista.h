@@ -17,6 +17,6 @@ void anula(Lista &lista);
 void saludo();
 int creacion_usuarios();
 void datosExperimento(Experimento *b);
-void rellenar();
+void rellenar(const char *nombre);
 void transpasar(Lista &lista);
 

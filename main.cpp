@@ -43,7 +43,7 @@ int main() {
         if (encontrar(verificador, lista) == true) {
             cout<< "ingresa el nombre del archivo y termionelo en .txt \n";    //solicitud de nombre para el archivo a crear
             cin >> nombre_arch;
-            rellenar();     //llamado a la funcion que se encarga de rellenar los datos de experimento
+            rellenar(nombre_arch);     //llamado a la funcion que se encarga de rellenar los datos de experimento
         } else {
             cout << "Lo sentimos, el usuario no fue encontrado";
         }
