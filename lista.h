@@ -1,5 +1,7 @@
-#include <stdio.h>
+#include <cstdio>
 #include "listaStruct.h"
+#include <iostream>
+
 
 /* Prototipos */
 bool vacia(Lista lista);
@@ -13,3 +15,9 @@ void imprime(Lista lista);
 int localiza(tipoDato x, Lista lista);
 void suprime(int p, Lista &lista);
 void anula(Lista &lista);
+void saludo();
+int creacion_usuarios();
+void datosExperimento(Experimento *b);
+void rellenar();
+void transpasar(Lista &lista);
+

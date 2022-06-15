@@ -6,199 +6,51 @@
 * Tarea 2
 *
 * Autores: Pablo Martinez p.martinez10@ufromail.cl
-*          Pablo
+*          Pablo rivera p.rivera07@ufromail.cl
 *
 * Fecha: 15/06/2022
 *
 * Descripción general del programa
 */
-
-
-#include <stdio.h>
-#include <string.h>
 #include <iostream>
-#include <fstream>
 #include "lista.h"
 
-
-char palabra[20];   //variable global para luego buscar por nombre
-bool existir = false; //boleano para corroborar que el usuario exista
+const char nombre_archivo[30] = "ListaUsuarios.txt";  //variable global que define el nombre de la lista de usuarios creados
+int verificador;
 char nombre_arch[30]; //nombre del archivo a ser creado
-
-struct Usuario {   //datos a solicitar para la creacion de un usuario
-    char nombre[50];
-    long rut;
-};
-
-struct Experimento {    //datos a solicitar para poder llenar la hoja del experimento
-    int Tiempo;
-    int Crecimiento;
-    int Altura;
-    int Cantidad_de_celulas_muertas;
-    int Cantidad_de_contaminadas;
-    int Cantidad_de_celulas_vivas;
-    long Concentración_en_solucione;
-};
-
-char nombre_archivo[30] = "ListaUsuarios.txt";  //variable global que define el nombre de la lista de usuarios creados
 //-------------------------------------------------------------------------------
-//lista de void's usados
-//-------------------------------------------------------------------------------
-void ingresarUsuario(Usuario *a);
-
-void datosExperimento(Experimento *b);
-
-void saludo();
-
-void lectura();
-
-void rellenar();
-
-void revision_usuarios();
-
-//-------------------------------------------------------------------------------
-
+Lista lista;
 using namespace std;
+//-------------------------------------------------------------------------------
+
 
 int main() {
-
-    printf("Test del TDA de Lista\n");
-    Lista lista;
-    anula(lista);
-    if (vacia(lista)) {
-        printf("La lista está vacía!\n");
-    }
-
-
+//-----------------------------------------------------------
+    anula(lista); //funcion que se encarga de eliminar los elementos de la lista
     saludo(); //llamado a la funcion saludo que solo imprime un mensaje
+    transpasar(lista);
+//-----------------------------------------------------------
     int opcion;
     cin >> opcion;
-
-    int numero_de_usuarios = 0;
-    Usuario u[numero_de_usuarios];      //numero de usuarios creados
-    //----------------------------------------------------
-
+ //--------------//CREACION-DE-USUARIOS---------------------
     if (opcion == 1) {
-        //CREACION DE USUARIOS
-        FILE *arch = fopen("ListaUsuarios.txt", "a+");  //creacion del archivo .txt
-        numero_de_usuarios++;
-        for (int i = 0; i < numero_de_usuarios; i++) {
-            ingresarUsuario(&u[i]);
-            fprintf(arch, " %s %lu \n", u[i].nombre, *&u[i].rut);   //llenado de datos de "usuario"
-            fclose(arch);            //cerrar archivo
-        }
+        creacion_usuarios();
     }
-        //----------------------------------------------------
+//-------CORROBORAR-USUARIO-Y-GUARDAR-DATOS-----------------
     else if (opcion == 2) {
         cout << "Ingresa tu rut por favor: ";   //solicitud de datos para corroborar la existencia del usuario
-        cin >> palabra;
-        revision_usuarios();      //funcion que corrobora la existencia de la palabra/numero dado
-        if (existir == true) {      //verificacion de que el usuario exista
-            cout
-                    << "ingresa el nombre del archivo y termionelo en .txt \n";    //solicitud de nombre para el archivo a crear
+        cin >> verificador;
+        if (localiza(verificador, lista) == true) {
+            cout<< "ingresa el nombre del archivo y termionelo en .txt \n";    //solicitud de nombre para el archivo a crear
             cin >> nombre_arch;
             rellenar();     //llamado a la funcion que se encarga de rellenar los datos de experimento
-
         } else {
             cout << "Lo sentimos, el usuario no fue encontrado";
         }
-        return 0;
-
     }
-        //-----------------------------------------------------
-
+//--------REVISION-DE-USUARIOS-------------------------------
     else if (opcion == 123) {   //colocamos un numero que solo el creador sabra para evitar que los usuarios vean a los usuarios ya creados
-        lectura();  //llamado a la funcion para poder ver los usuarios previamente creados
-
-    }
-}
-
-
-void ingresarUsuario(Usuario *a) {          //funcion para solicitar datos de usuario creados en un struct
-    cout << "ingrese su nombre y rut, sin puntos ni guion \n";
-    printf("Nombre: ");
-    scanf("%s", a->nombre);             //llenado de dato previamente creado, con formato solicitado
-    printf("Rut: ");
-    scanf("%lu", &(a->rut));
-    printf("--------------------------------\n");
-}
-
-void datosExperimento(Experimento *b) {      //funcion para solicitar datos de experimento creados en un struct
-    cout << "ingrese los datos del experimento \n";
-    cout << "Tiempo(dias):  ";
-    cin >> b->Tiempo;                //llenado de dato sin la necesidad de especificar formato
-    cout << "Altura Actual(cm):  ";
-    cin >> b->Altura;
-    cout << "Crecimiento(cm):  ";
-    cin >> b->Crecimiento;
-    cout << "cantidad de:\n";
-    cout << "especimenes muertas:  ";
-    cin >> b->Cantidad_de_celulas_muertas;
-    cout << "especimenes contaminadas:  ";
-    cin >> b->Cantidad_de_contaminadas;
-    cout << "especimenes vivas:  ";
-    cin >> b->Cantidad_de_celulas_vivas;
-    cout << "Concetracion en sol:  ";
-    cin >> b->Concentración_en_solucione;
-}
-
-void lectura() {
-    char nombre_archivo[20] = "ListaUsuarios.txt";
-    ifstream archivo;
-    string texto;
-    archivo.open(nombre_archivo, ios::in);//abrimos un archivo en modo lectura
-    if (archivo.fail()) {
-        cout << "\n no se pudo abrir el archivo \n";
-    }
-    while (!archivo.eof()) {//mientras no sea el final del archivo
-        getline(archivo, texto);
-        cout << texto << endl;
-    }
-    archivo.close();
-}
-
-void saludo() { //funcion simplemente creada para enviar instrucciones
-    cout << "**Bienvenido**" << "\n" << "Que accion desea realizar?" << "\n";
-    cout << "[1] Crear usuario" << "\n" << "[2] Guardar datos de experimento" << "\n" << "[?] Ver usurarios creados\n";
-
-}
-
-void rellenar() {
-    Experimento experimento;
-    FILE *arch2 = fopen(nombre_arch,
-                        "a+");  //creacion de archivo en modo en que  permite leer y agregar información en un archivo que existe. Si no existe se crea.
-    datosExperimento(&experimento);
-    fprintf(arch2, "%s %d \n %s %d \n",             //Imprimimos en el .txt los datos solicitados
-            "Tiempo(dias): ", *&experimento.Tiempo,
-            "Altura Actual(cm): ", *&experimento.Altura);
-    fprintf(arch2, "%s %d \n %s %d \n",
-            "Crecimiento(cm): ", *&experimento.Crecimiento,
-            "Cantidad de especimenes muertas: ", *&experimento.Cantidad_de_celulas_muertas);
-    fprintf(arch2, "%s %d \n ",
-            "Cantidad de especimenes contaminadas: ", *&experimento.Cantidad_de_contaminadas);
-    fprintf(arch2, "%s %d \n",
-            "Cantidad de especimenes vivas: ", *&experimento.Cantidad_de_celulas_vivas);
-    fprintf(arch2, "%s %lu \n",
-            "Concetracion en soluciones: ", *&experimento.Concentración_en_solucione);
-    fprintf(arch2, "%s \n", "-----------------");
-
-    fclose(arch2);      //cerramos el archivo
-}
-
-void revision_usuarios() {     //funcion creada para corroborar la existencia de usuario
-
-    if (palabra != NULL) {
-        ifstream fichero("ListaUsuarios.txt");  //llamdo a la lista de usuarios para poder corroborar su existencia
-        char cadena[500];
-        int nlinea = 0;
-        if (fichero) {
-            while (fichero) {
-                fichero.getline(cadena, 500);       //obtencion de lineas del archivo txt
-                nlinea++;
-                if (fichero)
-                    if (strstr(cadena, palabra)) //comparacion de palabras
-                        existir = true;     //cambio de estado del boleano al comprobar la existencia del usuario
-            }
-        }
+        transpasar(lista);
+        imprime(lista);  //llamado a la funcion para poder ver los usuarios previamente creados
     }
 }

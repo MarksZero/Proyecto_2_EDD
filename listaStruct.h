@@ -22,4 +22,14 @@ struct Lista{
     }
 };
 
+struct Experimento {    //datos a solicitar para poder llenar la hoja del experimento
+    int Tiempo;
+    int Crecimiento;
+    int Altura;
+    int Cantidad_de_celulas_muertas;
+    int Cantidad_de_contaminadas;
+    int Cantidad_de_celulas_vivas;
+    long Concentración_en_solucione;
+};
+
 #endif
