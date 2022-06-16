@@ -9,3 +9,14 @@ Una vez comprobada la existencia del usuario, se procederá a llenar los campos 
 solicitados, para luego guardarlos en un archivo que tenga el nombre que el usuario estime conveniente.
 Este archivo puede ser editado múltiples veces para así funcionar a manera de bitácora de experimentos.
 
+<p>&nbsp;</p>
+
+      Funciones: 
+
+               -Creacion de usuario.
+
+               -Comprobación de usuarios
+
+               -Creacion de archivos para almacenar datos.
+
+               -Revision de usuarios mediante la opcion oculta 123.
