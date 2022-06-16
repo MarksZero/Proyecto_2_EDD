@@ -5,17 +5,24 @@
 *
 * Tarea 2
 *
-* Autores: Pablo Martinez p.martinez10@ufromail.cl
-*          Pablo rivera p.rivera07@ufromail.cl
+* Autores: Pablo Martinez. (p.martinez10@ufromail.cl)
+*          Pablo Rivera. (p.rivera07@ufromail.cl)
 *
 * Fecha: 15/06/2022
 *
-* Descripción general del programa
+* Descripción general del programa:
+* el programa tiene la finalidad de la creación de archivos txt los cuales contienen información
+* de experimentos realizados por estudiantes de biotecnología.
+* Para poder hacer uso de este programa se requiere de la previa creación de un usuario, el cual
+* será almacenado en un archivo txt llamado listaUsuarios, el cual será "escaneado" y traspasado
+* a un TDA de Lista para hacer uso más rápido de este.
+* Una vez comprobada la existencia del usuario, se procederá a llenar los campos de información
+* solicitados, para luego guardarlos en un archivo que tenga el nombre que el usuario estime conveniente.
+* Este archivo puede ser editado múltiples veces para así funcionar a manera de bitácora de experimentos.
 */
 #include <iostream>
 #include "lista.h"
 
-const char nombre_archivo[30] = "ListaUsuarios.txt";  //variable global que define el nombre de la lista de usuarios creados
 int verificador;
 int opcion;
 char nombre_arch[30]; //nombre del archivo a ser creado

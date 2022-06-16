@@ -15,7 +15,7 @@ int encontrar(tipoDato x, Lista lista);
 void suprime(int p, Lista &lista);
 void anula(Lista &lista);
 void saludo();
-int creacion_usuarios();
+void creacion_usuarios();
 void datosExperimento(Experimento *b);
 void rellenar(const char *nombre);
 void transpasar(Lista &lista);

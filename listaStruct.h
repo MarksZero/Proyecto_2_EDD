@@ -7,7 +7,7 @@ struct nodo{
     tipoDato dato;
     struct nodo* next;
     nodo(){
-        next=NULL;
+        next=nullptr;
     }
     nodo(tipoDato x){
         nodo();
@@ -18,7 +18,7 @@ struct nodo{
 struct Lista{
     struct nodo* primero;
     Lista(){
-        primero=NULL;
+        primero=nullptr;
     }
 };
 
